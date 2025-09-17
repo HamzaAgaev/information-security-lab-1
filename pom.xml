@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.5.5</version>
+        <version>4.0.0-M2</version>
         <relativePath/>
     </parent>
     <groupId>info.sec</groupId>
@@ -99,19 +99,24 @@
                 </executions>
             </plugin>
             <plugin>
-                <groupId>org.owasp</groupId>
-                <artifactId>dependency-check-maven</artifactId>
-                <version>12.1.3</version>
-                <configuration>
-                    <failBuildOnCVSS>7</failBuildOnCVSS>
-                </configuration>
+                <groupId>io.snyk</groupId>
+                <artifactId>snyk-maven-plugin</artifactId>
+                <version>2.3.0</version>
                 <executions>
                     <execution>
+                        <id>snyk-test</id>
+                        <phase>test</phase>
                         <goals>
-                            <goal>check</goal>
+                            <goal>test</goal>
                         </goals>
                     </execution>
                 </executions>
+                <configuration>
+                    <args>
+                        <arg>--severity-threshold=high</arg>
+                        <arg>--fail-on-all</arg>
+                    </args>
+                </configuration>
             </plugin>
         </plugins>
     </build>
